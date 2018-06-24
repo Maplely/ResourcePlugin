@@ -1,17 +1,20 @@
-def res_dir = "${rootDir}/app/src/res/"
-def res_presuffix = "lht_"
+def res_dir = "${rootDir}/app/src/main/res"
+//def res_presuffix = "lht_"
 def renameFile(File path) {
+    if(!path.exists()){
+        println("路径错误!!!!")
+        return
+    }
     if (!path.isDirectory()) {
         //file不是路径
-        if (path.name.startsWith(res_presuffix)) {
-            void
+        if (path.name.startsWith("lht_")) {
         } else {
-            path.renameTo(path.getAbsolutePath() + res_presuffix + path.getName())
-            void
+            path.renameTo(path.getParentFile().getAbsolutePath() + "/lht_" + path.getName())
         }
     } else {
         //file是一个路径
         path.listFiles().each {
+            println(it.name)
             renameFile(it)
         }
     }
