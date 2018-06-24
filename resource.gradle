@@ -1,0 +1,24 @@
+def res_dir = "${rootDir}/app/src/res/"
+def res_presuffix = "lht_"
+def renameFile(File path) {
+    if (!path.isDirectory()) {
+        //file不是路径
+        if (path.name.startsWith(res_presuffix)) {
+            void
+        } else {
+            path.renameTo(path.getAbsolutePath() + res_presuffix + path.getName())
+            void
+        }
+    } else {
+        //file是一个路径
+        path.listFiles().each {
+            renameFile(it)
+        }
+    }
+}
+task resourceRename {
+    group = "Rename"
+    doLast {
+        renameFile(file(res_dir))
+    }
+}
